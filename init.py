@@ -59,8 +59,10 @@ I have successfully completed action {send_or_request} money for {name}.
     try:
       if send_or_request == "Send":
         success = venmo.send_money(id, amount, description, funding_id)
-      else:
+      elif send_or_request == "Request":
         success = venmo.request_money(id, amount, description)
+      else:
+        raise ValueError("Invalid value for send_or_request. Expected 'Send' or 'Request'.")
 
       if success:
         telegram.send_message(message)

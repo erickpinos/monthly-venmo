@@ -48,10 +48,11 @@ def main(now):
     description = description + " — Sent by Erick's Assistant Efron 🤵🏻‍♂"
     amount = float(amount)
     message = f"""Good news old sport!
+    
 
-I have successfully sent money to {name}.
+I have successfully completed action {send_or_request} money for {name}.
 
-— Efron 🤵🏻‍♂️
+— Efron 🤵🏻‍♂
     """
     action = venmo.send_money if os.getenv("SEND_OR_REQUEST") == "Send" else venmo.request_money
     success = action(id, amount, description, telegram.send_message(message))
@@ -59,7 +60,7 @@ I have successfully sent money to {name}.
       successfulRequests.append(success)
 
   if len(successfulRequests) == expectedRequests:
-    print("✅ Ran script successfully and sent " + str(expectedRequests) + " Venmo requests.")
+    print("✅ Ran script successfully and sent " + str(expectedRequests) + " Venmo " + send_or_request +".")
   else:
     print("❌ Something went wrong. Only sent " + str(len(successfulRequests)) + "/" + str(expectedRequests) + " venmo requests.")
 

@@ -17,7 +17,7 @@ def get_env(env):
       print("   Exiting script. Please add and run again.")
       quit()
 
-env_vars = ["VENMO_ACCESS_TOKEN", "TELEGRAM_CHAT_ID", "TELEGRAM_BOT_TOKEN", "FRIEND_ID_1", "FRIEND_NAME_1", "FRIEND_ID_2", "FRIEND_NAME_2", "DESCRIPTION", "SPECIFIED_DAY"]
+env_vars = ["VENMO_ACCESS_TOKEN", "TELEGRAM_CHAT_ID", "TELEGRAM_BOT_TOKEN", "FRIEND_ID_1", "FRIEND_NAME_1", "FRIEND_ID_2", "FRIEND_NAME_2", "SEND_OR_REQUEST", "AMOUNT", "DESCRIPTION", "SPECIFIED_DAY"]
 
 def verify_env_vars(vars, numOfExpected):
   """
@@ -74,7 +74,11 @@ class Venmo:
 
     def request_money(self, id, amount, description, callback = None):
         # Returns a boolean: true if successfully requested
-        return self.client.payment.request_money(amount, description, id, PaymentPrivacy.PUBLIC, None, callback)
+        return self.client.payment.request_money(amount, description, id, PaymentPrivacy.PRIVATE, None, callback)
+
+    def send_money(self, id, amount, description, callback = None):
+        # Returns a boolean: true if successfully requested
+        return self.client.payment.send_money(amount, description, id, PaymentPrivacy.PRIVATE, None, callback)
 
 class Telegram:
     def __init__(self, bot_token, chat_id):

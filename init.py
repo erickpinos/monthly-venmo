@@ -19,13 +19,13 @@ def main(now):
   for var in env_vars:
     actualVars.append(get_env(var))
 
-  access_token, chat_id, bot_token, friend_id_1, friend_name_1, friend_id_2, friend_name_2, description, specified_day = actualVars
+  access_token, chat_id, bot_token, friend_id_1, friend_name_1, friend_id_2, friend_name_2, send_or_request, amount, description, specified_day = actualVars
 
   # specific day of the month to run the script
-  specified_day = specified_day
+  specified_day = int(specified_day)
 
   if now.day != specified_day:
-    print(f"Today is not the specified day ({specified_day}), script will not run.")
+    print(f"Today is ({now.day}), not the specified day ({specified_day}), script will not run.")
     return
 
   month = get_month(now)
@@ -46,14 +46,15 @@ def main(now):
     name = friend["name"]
     id = friend["id"]
     description = description + " — Sent by Erick's Assistant Efron 🤵🏻‍♂"
-    amount = 3.50
+    amount = float(amount)
     message = f"""Good news old sport!
 
-I have successfully requested money from {name}.
+I have successfully sent money to {name}.
 
 — Efron 🤵🏻‍♂️
     """
-    success = venmo.request_money(id, amount, description, telegram.send_message(message))
+    action = venmo.send_money if os.getenv("SEND_OR_REQUEST") == "Send" else venmo.request_money
+    success = action(id, amount, description, telegram.send_message(message))
     if success:
       successfulRequests.append(success)
 

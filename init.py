@@ -1,3 +1,5 @@
+import os
+
 from venmo_api import Client
 from dotenv import load_dotenv
 from notifiers import get_notifier
@@ -10,12 +12,21 @@ def main(now):
   The main function which initiates the script.
   """
 
-  load_dotenv()  # take environment variables from .env.
+  # take environment variables from .env
+  load_dotenv()
   actualVars = []
   for var in env_vars:
     actualVars.append(get_env(var))
 
-  access_token, chat_id, bot_token, k_friend_id, c_friend_id, w_friend_id, j_friend_id = actualVars
+  access_token, chat_id, bot_token, friend_id_1, friend_name_1, friend_id_2, friend_name_2, description = actualVars
+
+  # take environment variables from os
+  """
+  access_token = os.getenv("ACCESS_TOKEN")
+  chat_id = os.getenv("CHAT_ID")
+  bot_token = os.getenv("BOT_TOKEN")
+  friend_id_1 = os.getenv("FRIEND_ID_1")
+  """
 
   month = get_month(now)
   venmo = Venmo(access_token)
@@ -23,17 +34,9 @@ def main(now):
 
   friends =[
     {
-      "name": "KRam",
-      "id": k_friend_id,
-    },
-    {
-      "name": "Chrissy",
-      "id": c_friend_id,
-    },
-    {
-      "name": "Will",
-      "id": w_friend_id,
-    },
+      "name": friend_name_1,
+      "id": friend_id_1,
+    }
   ]
 
   successfulRequests = []
@@ -42,7 +45,7 @@ def main(now):
   for friend in friends:
     name = friend["name"]
     id = friend["id"]
-    description = "Spotify for the month of " + month + "— Sent by Joe's Assistant Efron 🤵🏻‍♂️"
+    description = description + " — Sent by Erick's Assistant Efron 🤵🏻‍♂"
     amount = 3.50
     message = f"""Good news old sport!
 

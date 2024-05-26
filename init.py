@@ -19,7 +19,7 @@ def main(now):
   for var in env_vars:
     actualVars.append(get_env(var))
 
-  access_token, chat_id, bot_token, friend_id_1, friend_name_1, friend_id_2, friend_name_2, send_or_request, amount, description, specified_day = actualVars
+  access_token, chat_id, bot_token, friend_id_1, friend_name_1, friend_id_2, friend_name_2, send_or_request, amount, description, specified_day, funding_id = actualVars
 
   # specific day of the month to run the script
   specified_day = int(specified_day)
@@ -54,10 +54,19 @@ I have successfully completed action {send_or_request} money for {name}.
 
 — Efron 🤵🏻‍♂
     """
-    action = venmo.send_money if os.getenv("SEND_OR_REQUEST") == "Send" else venmo.request_money
-    success = action(id, amount, description, telegram.send_message(message))
-    if success:
-      successfulRequests.append(success)
+    send_or_request = os.getenv("SEND_OR_REQUEST")
+
+    try:
+      if send_or_request == "Send":
+        success = venmo.send_money(id, amount, description, funding_id)
+      else:
+        success = venmo.request_money(id, amount, description)
+
+      if success:
+        telegram.send_message(message)
+        successfulRequests.append(success)
+    except Exception as e:
+      print(f"An error occured: {e}")
 
   if len(successfulRequests) == expectedRequests:
     print("✅ Ran script successfully and sent " + str(expectedRequests) + " Venmo " + send_or_request +".")

@@ -17,7 +17,7 @@ def get_env(env):
       print("   Exiting script. Please add and run again.")
       quit()
 
-env_vars = ["VENMO_ACCESS_TOKEN", "TELEGRAM_CHAT_ID", "TELEGRAM_BOT_TOKEN", "FRIEND_ID_1", "FRIEND_NAME_1", "FRIEND_ID_2", "FRIEND_NAME_2", "SEND_OR_REQUEST", "AMOUNT", "DESCRIPTION", "SPECIFIED_DAY"]
+env_vars = ["VENMO_ACCESS_TOKEN", "TELEGRAM_CHAT_ID", "TELEGRAM_BOT_TOKEN", "FRIEND_ID_1", "FRIEND_NAME_1", "FRIEND_ID_2", "FRIEND_NAME_2", "SEND_OR_REQUEST", "AMOUNT", "DESCRIPTION", "SPECIFIED_DAY", "FUNDING_ID"]
 
 def verify_env_vars(vars, numOfExpected):
   """
@@ -77,13 +77,13 @@ class Venmo:
         return self.client.payment.request_money(amount, description, id, PaymentPrivacy.PRIVATE, None, callback)
 
   
-    def send_money(self, id, amount, description, callback = None): 
+    def send_money(self, id, amount, description, funding_id, callback = None): 
         try:
           # Returns a boolean: true if successfully sent
-          return self.client.payment.send_money(amount, description, id, None, None, PaymentPrivacy.PRIVATE, callback)
+          return self.client.payment.send_money(amount, description, id, funding_id, None, PaymentPrivacy.PRIVATE, callback)
         except Exception as e:
           # Log the error
-          print(f"Failed to complete trasnaction: {e}")
+          print(f"Failed to complete transaction: {e}")
           return False
 
 class Telegram:

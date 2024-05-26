@@ -62,7 +62,7 @@ I have successfully completed action {send_or_request} money for {name}.
   if len(successfulRequests) == expectedRequests:
     print("✅ Ran script successfully and sent " + str(expectedRequests) + " Venmo " + send_or_request +".")
   else:
-    print("❌ Something went wrong. Only sent " + str(len(successfulRequests)) + "/" + str(expectedRequests) + " venmo requests.")
+    print("❌ Something went wrong. Sent " + str(len(successfulRequests)) + "/" + str(expectedRequests) + " venmo requests.")
 
 now = datetime.now()
 main(now)

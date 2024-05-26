@@ -76,9 +76,15 @@ class Venmo:
         # Returns a boolean: true if successfully requested
         return self.client.payment.request_money(amount, description, id, PaymentPrivacy.PRIVATE, None, callback)
 
+  
     def send_money(self, id, amount, description, callback = None): 
-        # Returns a boolean: true if successfully sent
-        return self.client.payment.send_money(amount, description, id, None, None, PaymentPrivacy.PRIVATE, callback)
+        try:
+          # Returns a boolean: true if successfully sent
+          return self.client.payment.send_money(amount, description, id, None, None, PaymentPrivacy.PRIVATE, callback)
+        except Exception as e:
+          # Log the error
+          print(f"Failed to complete trasnaction: {e}")
+          return False
 
 class Telegram:
     def __init__(self, bot_token, chat_id):

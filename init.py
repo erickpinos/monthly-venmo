@@ -19,7 +19,7 @@ def main(now):
   for var in env_vars:
     actualVars.append(get_env(var))
 
-  access_token, chat_id, bot_token, friend_id_1, friend_name_1, friend_id_2, friend_name_2, send_or_request, amount, description, specified_day, funding_id = actualVars
+  access_token, chat_id, bot_token, friend_id_1, friend_name_1, send_or_request, amount, description, specified_day, funding_id = actualVars
 
   # specific day of the month to run the script
   specified_day = int(specified_day)

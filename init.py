@@ -45,12 +45,14 @@ def main(now):
   for friend in friends:
     name = friend["name"]
     id = friend["id"]
-    description = description + " — Sent by Erick's Assistant Efron 🤵🏻‍♂"
+    description = description + " — Sent by Erick's assistant Efron 🤵🏻‍♂"
     amount = float(amount)
     message = f"""Good news old sport!
     
 
-I have successfully completed action {send_or_request} money for {name}.
+I have successfully completed action {send_or_request} ${amount} for {name}.
+
+{description}
 
 — Efron 🤵🏻‍♂
     """

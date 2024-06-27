@@ -50,9 +50,9 @@ def main(now):
     message = f"""Good news old sport!
     
 
-I have successfully completed action {send_or_request} ${amount} for {name}.
+I have successfully completed action {send_or_request} ${amount} to {name}.
 
-{description}
+"{description}"
 
 — Efron 🤵🏻‍♂
     """

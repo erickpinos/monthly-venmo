@@ -17,7 +17,7 @@ def get_env(env):
       print("   Exiting script. Please add and run again.")
       quit()
 
-env_vars = ["VENMO_ACCESS_TOKEN", "TELEGRAM_CHAT_ID", "TELEGRAM_BOT_TOKEN", "FRIEND_ID_1", "FRIEND_NAME_1", "SEND_OR_REQUEST", "AMOUNT", "DESCRIPTION", "SPECIFIED_DAY", "FUNDING_ID"]
+env_vars = ["VENMO_ACCESS_TOKEN", "TELEGRAM_CHAT_ID", "TELEGRAM_BOT_TOKEN", "FRIEND_ID_1", "FRIEND_NAME_1", "SEND_OR_REQUEST_1", "AMOUNT_1", "DESCRIPTION_1", "SPECIFIED_DAY_1", "FUNDING_ID_1", "FRIEND_ID_2", "FRIEND_NAME_2", "SEND_OR_REQUEST_2", "AMOUNT_2", "DESCRIPTION_2", "SPECIFIED_DAY_2", "FUNDING_ID_2"]
 
 def verify_env_vars(vars, numOfExpected):
   """
@@ -70,6 +70,21 @@ class Venmo:
             return user.id
         else:
             print("ERROR: user did not comeback. Check username.")
+            return None
+
+    def get_my_user_id(self):
+        """
+        Get the current user's ID (your own ID) using the access token
+        """
+        try:
+            user = self.client.user.get_my_profile()
+            if user:
+                return user.id
+            else:
+                print("ERROR: Could not get your user profile.")
+                return None
+        except Exception as e:
+            print(f"ERROR: Failed to get your user ID: {e}")
             return None
 
     def request_money(self, id, amount, description, callback = None):
